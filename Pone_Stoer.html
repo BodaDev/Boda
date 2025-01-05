@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Store Management</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            direction: rtl; /* ترتيب النصوص من اليمين لليسار */
+            background-image: url('WhatsApp Image 2025-01-05 at 22.27.42_6c6260fd.jpg'); /* ضع هنا رابط الصورة بحجم 1920x1080 */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            background-color: rgba(255, 255, 255, 0.8); /* خلفية شفافة لمزيد من الوضوح */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .form-container, .product-list, .sales-list {
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: right; /* النصوص من اليمين لليسار */
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .form-container input, .form-container select {
+            padding: 12px;
+            margin: 10px 0;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .barcode-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .barcode-container video {
+            width: 100%;
+            max-width: 500px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>إدارة متجر الهواتف</h1>
+
+        <!-- Add Product Form -->
+        <div class="form-container">
+            <h2>إضافة منتج جديد</h2>
+            <form>
+                <input type="text" id="product-name" placeholder="اسم المنتج" required>
+                <input type="number" id="product-price" placeholder="سعر المنتج" required>
+                <input type="number" id="product-quantity" placeholder="كمية المنتج" required>
+                <button type="submit" class="button">إضافة المنتج</button>
+            </form>
+        </div>
+
+        <!-- Product List -->
+        <div class="product-list">
+            <h2>قائمة المنتجات</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>اسم المنتج</th>
+                        <th>السعر</th>
+                        <th>الكمية</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="product-table-body">
+                    <!-- Dynamic product rows will go here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Sales Section -->
+        <div class="sales-list">
+            <h2>المبيعات</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>اسم المنتج</th>
+                        <th>الكمية المباعة</th>
+                        <th>السعر الإجمالي</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="sales-table-body">
+                    <!-- Dynamic sales rows will go here -->
+                </tbody>
+            </table>
+
+            <div class="form-container">
+                <h2>تسجيل عملية بيع</h2>
+                <form id="sale-form">
+                    <select id="sale-product" required>
+                        <option value="">اختيار المنتج</option>
+                    </select>
+                    <input type="number" id="sale-quantity" placeholder="الكمية المباعة" required>
+                    <button type="submit" class="button">تسجيل البيع</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Barcode Scanner Section -->
+        <div class="barcode-container">
+            <h2>مسح الباركود</h2>
+            <video id="barcode-video" autoplay></video>
+            <button id="start-scanning" class="button">بدء المسح</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/@zxing/library@0.18.4"></script>
+    <script>
+        const productList = [];
+        const saleList = [];
+        const productTableBody = document.getElementById('product-table-body');
+        const salesTableBody = document.getElementById('sales-table-body');
+        const saleProductSelect = document.getElementById('sale-product');
+
+        // Handle Add Product
+        document.querySelector(".form-container form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById("product-name").value;
+            const price = parseFloat(document.getElementById("product-price").value);
+            const quantity = parseInt(document.getElementById("product-quantity").value);
+
+            const product = { name, price, quantity };
+            productList.push(product);
+
+            updateProductList();
+        });
+
+        // Handle Record Sale
+        document.getElementById("sale-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const productName = document.getElementById("sale-product").value;
+            const quantitySold = parseInt(document.getElementById("sale-quantity").value);
+
+            const product = productList.find(p => p.name === productName);
+            if (product && product.quantity >= quantitySold) {
+                product.quantity -= quantitySold;
+                const totalPrice = product.price * quantitySold;
+                saleList.push({ productName, quantitySold, totalPrice });
+                updateProductList();
+                updateSaleList();
+            } else {
+                alert("كمية غير كافية أو منتج غير صالح.");
+            }
+        });
+
+        // Update Product List Table
+        function updateProductList() {
+            productTableBody.innerHTML = '';
+            productList.forEach(product => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${product.name}</td>
+                    <td>${product.price}</td>
+                    <td>${product.quantity}</td>
+                    <td><button class="button">تعديل</button> <button class="button">حذف</button></td>
+                `;
+                productTableBody.appendChild(row);
+                updateSaleProductOptions();
+            });
+        }
+
+        // Update Sales Table
+        function updateSaleList() {
+            salesTableBody.innerHTML = '';
+            saleList.forEach(sale => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${sale.productName}</td>
+                    <td>${sale.quantitySold}</td>
+                    <td>${sale.totalPrice}</td>
+                    <td><button class="button">استرجاع</button></td>
+                `;
+                salesTableBody.appendChild(row);
+            });
+        }
+
+        // Update Product Options for Sales Form
+        function updateSaleProductOptions() {
+            saleProductSelect.innerHTML = `<option value="">اختيار منتج</option>`;
+            productList.forEach(product => {
+                const option = document.createElement("option");
+                option.value = product.name;
+                option.textContent = product.name;
+                saleProductSelect.appendChild(option);
+            });
+        }
+
+        // Barcode Scanner
+        const codeReader = new ZXing.BrowserMultiFormatReader();
+        const videoElement = document.getElementById('barcode-video');
+        const startScanningButton = document.getElementById('start-scanning');
+
+        startScanningButton.addEventListener("click", function() {
+            codeReader.decodeFromVideoDevice(null, videoElement, (result, error) => {
+                if (result) {
+                    alert("تم مسح الباركود: " + result.getText());
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

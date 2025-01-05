@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Management System</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: url('WhatsApp Image 2024-12-22 at 23.36.32_784c3831.jpg');  /* استبدل بالمسار الصحيح للصورة */
+            background-size: cover;  /* لتغطية كامل الخلفية */
+            background-position: center;  /* لتوسيط الصورة */
+            background-repeat: no-repeat;  /* لمنع تكرار الصورة */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.8);  /* خلفية شفافة قليلاً لتسليط الضوء على المحتوى */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #004d80;
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .product-list, .sales-list {
+            margin-top: 30px;
+            border-top: 2px solid #ddd;
+            padding-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #004d80;
+            color: white;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        .button {
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #005bb5;
+        }
+
+        .form-container {
+            background: #e6f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container input, .form-container select {
+            padding: 12px;
+            margin: 10px 0;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #004d80;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .left-top-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #004d80;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .left-top-button:hover {
+            background-color: #005bb5;
+        }
+        
+        .barcode-scanner {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Add Product Form -->
+        <button class="left-top-button" onclick="window.location.href='#'">بيع المنتج</button>
+        <h1>Pharmacy Management System</h1>
+
+        <div class="form-container">
+            <h2>Add New Product</h2>
+            <form>
+                <input type="text" id="product-name" placeholder="Product Name" required>
+                <input type="number" id="product-price" placeholder="Product Price" required>
+                <input type="number" id="product-quantity" placeholder="Product Quantity" required>
+                <button type="submit" class="button">Add Product</button>
+            </form>
+        </div>
+
+        <!-- Product List -->
+        <div class="product-list">
+            <h2>Product List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Product rows will go here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Sales Section -->
+        <div class="sales-list">
+            <h2>Sales</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Quantity Sold</th>
+                        <th>Total Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Sales rows will go here -->
+                </tbody>
+            </table>
+
+            <div class="form-container">
+                <h2>Record a Sale</h2>
+                <form>
+                    <select id="sale-product" required>
+                        <option value="">Select Product</option>
+                        <!-- Product options will go here -->
+                    </select>
+                    <input type="number" id="sale-quantity" placeholder="Quantity Sold" required>
+                    <button type="submit" class="button">Record Sale</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Barcode Scanner -->
+        <div class="barcode-scanner">
+            <h2>Scan Product Barcode</h2>
+            <button class="button" onclick="startBarcodeScanner()">Start Scanner</button>
+        </div>
+    </div>
+
+    <script>
+        const productList = [];
+        const saleList = [];
+
+        // Handle Add Product
+        document.querySelector("form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById("product-name").value;
+            const price = parseFloat(document.getElementById("product-price").value);
+            const quantity = parseInt(document.getElementById("product-quantity").value);
+
+            const product = { name, price, quantity };
+            productList.push(product);
+
+            updateProductList();
+        });
+
+        // Handle Record Sale
+        document.querySelectorAll(".form-container form")[1].addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const productName = document.getElementById("sale-product").value;
+            const quantitySold = parseInt(document.getElementById("sale-quantity").value);
+
+            const product = productList.find(p => p.name === productName);
+            if (product && product.quantity >= quantitySold) {
+                product.quantity -= quantitySold;
+                const totalPrice = product.price * quantitySold;
+                saleList.push({ productName, quantitySold, totalPrice });
+                updateProductList();
+                updateSaleList();
+            } else {
+                alert("Insufficient quantity or invalid product.");
+            }
+        });
+
+        // Update Product List Table
+        function updateProductList() {
+            const tbody = document.querySelector(".product-list tbody");
+            tbody.innerHTML = "";
+
+            productList.forEach(product => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${product.name}</td>
+                    <td>${product.price}</td>
+                    <td>${product.quantity}</td>
+                    <td><button class="button">Edit</button> <button class="button">Delete</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            updateSaleProductOptions();
+        }
+
+        // Update Sales Table
+        function updateSaleList() {
+            const tbody = document.querySelector(".sales-list tbody");
+            tbody.innerHTML = "";
+
+            saleList.forEach(sale => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${sale.productName}</td>
+                    <td>${sale.quantitySold}</td>
+                    <td>${sale.totalPrice}</td>
+                    <td><button class="button">Refund</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Update Product Options for Sales Form
+        function updateSaleProductOptions() {
+            const saleProductSelect = document.getElementById("sale-product");
+            saleProductSelect.innerHTML = `<option value="">Select Product</option>`;
+
+            productList.forEach(product => {
+                const option = document.createElement("option");
+                option.value = product.name;
+                option.textContent = product.name;
+                saleProductSelect.appendChild(option);
+            });
+        }
+
+        // Placeholder function to start barcode scanner
+        function startBarcodeScanner() {
+            alert("Barcode scanner functionality is not implemented yet.");
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
