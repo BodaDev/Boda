@@ -8,9 +8,9 @@
         body {
             font-family: 'Roboto', sans-serif;
             background-image: url('WhatsApp Image 2024-12-22 at 23.36.32_784c3831.jpg');  /* استبدل بالمسار الصحيح للصورة */
-            background-size: cover;  /* لتغطية كامل الخلفية */
-            background-position: center;  /* لتوسيط الصورة */
-            background-repeat: no-repeat;  /* لمنع تكرار الصورة */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             color: #333;
             margin: 0;
             padding: 0;
@@ -19,7 +19,7 @@
         .container {
             max-width: 900px;
             margin: 30px auto;
-            background: rgba(255, 255, 255, 0.8);  /* خلفية شفافة قليلاً لتسليط الضوء على المحتوى */
+            background: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
@@ -117,11 +117,67 @@
             margin-top: 20px;
             text-align: center;
         }
+
+        /* Media Query for small devices */
+        @media only screen and (max-width: 768px) {
+            .container {
+                margin: 15px;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .product-list, .sales-list {
+                margin-top: 20px;
+                padding-top: 15px;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            .button {
+                padding: 8px 15px;
+            }
+
+            .form-container input, .form-container select {
+                padding: 10px;
+            }
+
+            .form-container button {
+                padding: 10px;
+            }
+
+            .left-top-button {
+                font-size: 12px;
+                padding: 10px;
+            }
+        }
+
+        /* Media Query for very small devices */
+        @media only screen and (max-width: 480px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            .button {
+                padding: 8px;
+            }
+
+            .form-container input, .form-container select {
+                padding: 8px;
+            }
+
+            .form-container button {
+                padding: 8px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Add Product Form -->
         <button class="left-top-button" onclick="window.location.href='#'">بيع المنتج</button>
         <h1>Pharmacy Management System</h1>
 
@@ -135,7 +191,6 @@
             </form>
         </div>
 
-        <!-- Product List -->
         <div class="product-list">
             <h2>Product List</h2>
             <table>
@@ -153,7 +208,6 @@
             </table>
         </div>
 
-        <!-- Sales Section -->
         <div class="sales-list">
             <h2>Sales</h2>
             <table>
@@ -175,7 +229,6 @@
                 <form>
                     <select id="sale-product" required>
                         <option value="">Select Product</option>
-                        <!-- Product options will go here -->
                     </select>
                     <input type="number" id="sale-quantity" placeholder="Quantity Sold" required>
                     <button type="submit" class="button">Record Sale</button>
@@ -183,7 +236,6 @@
             </div>
         </div>
 
-        <!-- Barcode Scanner -->
         <div class="barcode-scanner">
             <h2>Scan Product Barcode</h2>
             <button class="button" onclick="startBarcodeScanner()">Start Scanner</button>
@@ -194,7 +246,6 @@
         const productList = [];
         const saleList = [];
 
-        // Handle Add Product
         document.querySelector("form").addEventListener("submit", function(event) {
             event.preventDefault();
 
@@ -208,7 +259,6 @@
             updateProductList();
         });
 
-        // Handle Record Sale
         document.querySelectorAll(".form-container form")[1].addEventListener("submit", function(event) {
             event.preventDefault();
 
@@ -227,7 +277,6 @@
             }
         });
 
-        // Update Product List Table
         function updateProductList() {
             const tbody = document.querySelector(".product-list tbody");
             tbody.innerHTML = "";
@@ -246,7 +295,6 @@
             updateSaleProductOptions();
         }
 
-        // Update Sales Table
         function updateSaleList() {
             const tbody = document.querySelector(".sales-list tbody");
             tbody.innerHTML = "";
@@ -257,16 +305,15 @@
                     <td>${sale.productName}</td>
                     <td>${sale.quantitySold}</td>
                     <td>${sale.totalPrice}</td>
-                    <td><button class="button">Refund</button></td>
+                    <td><button class="button">Delete</button></td>
                 `;
                 tbody.appendChild(row);
             });
         }
 
-        // Update Product Options for Sales Form
         function updateSaleProductOptions() {
             const saleProductSelect = document.getElementById("sale-product");
-            saleProductSelect.innerHTML = `<option value="">Select Product</option>`;
+            saleProductSelect.innerHTML = '<option value="">Select Product</option>';
 
             productList.forEach(product => {
                 const option = document.createElement("option");
@@ -276,13 +323,13 @@
             });
         }
 
-        // Placeholder function to start barcode scanner
         function startBarcodeScanner() {
-            alert("Barcode scanner functionality is not implemented yet.");
+            alert("Barcode scanner started (this is a placeholder).");
         }
     </script>
 </body>
 </html>
+
 
 
 

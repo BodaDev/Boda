@@ -144,49 +144,116 @@
             color: #ffcb05;
         }
 
-.bio-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 40px; /* مسافة بين الجهتين */
-    margin-top: 30px;
-}
+        .bio-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px; /* مسافة بين الجهتين */
+            margin-top: 30px;
+        }
 
-.bio {
-    width: 45%;
-    background: #202036;
-    padding: 30px;
-    border-radius: 8px;
-}
+        .bio {
+            width: 45%;
+            background: #202036;
+            padding: 30px;
+            border-radius: 8px;
+        }
 
-.right-content {
-    width: 45%;
-    background: #202036;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+        .right-content {
+            width: 45%;
+            background: #202036;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
 
-.right-content h3 {
-    color: #ffcb05;
-    margin-bottom: 15px;
-}
+        .right-content h3 {
+            color: #ffcb05;
+            margin-bottom: 15px;
+        }
 
-.right-content p {
-    color: #ddd;
-    font-size: 1.2rem;
-    line-height: 1.8;
-}
+        .right-content p {
+            color: #ddd;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
 
-.project-image {
-    width: 100%;
-    border-radius: 8px;
-    margin-top: 20px;
-}
+        .project-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
 
-.bio h2, .right-content h3 {
-    color: #ffcb05;
-}
+        .bio h2, .right-content h3 {
+            color: #ffcb05;
+        }
+
+        /* Media Queries for responsive design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+            }
+
+            header img {
+                width: 150px;
+                height: 150px;
+                margin-bottom: 15px;
+            }
+
+            header .intro h1 {
+                font-size: 1.8rem;
+            }
+
+            header nav {
+                display: flex;
+                flex-direction: column;
+                margin-top: 15px;
+            }
+
+            header nav a {
+                font-size: 16px;
+                margin: 5px 0;
+            }
+
+            .bio-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .bio, .right-content {
+                width: 100%;
+            }
+
+            .projects {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .projects .project {
+                width: 90%;
+                margin-bottom: 20px;
+            }
+
+            footer {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header .intro h1 {
+                font-size: 1.5rem;
+            }
+
+            header .intro p {
+                font-size: 1rem;
+            }
+
+            footer .social-icons a {
+                font-size: 16px;
+            }
+        }
 
     </style>
 </head>
@@ -237,14 +304,24 @@
         <h2>Projects</h2>
         <div class="projects">
             <div class="project">
-                <img src="DALL·E 2025-01-05 22.02.08 - An icon for a pharmacy system, featuring a stylized mortar and pestle with a modern and clean design. The color scheme should include shades of green .webp" alt="pharmacy_System">
-                <h4>pharmacy_System</h4>
-                <a href="pharmacy_System.html">View Details</a>
+                <img src="DALL·E 2025-01-05 00.22.56.jpg" alt="Portfolio project 1">
+                <h3>My First Project</h3>
+                <p>A simple web application built with HTML and CSS.</p>
+                <a href="#">View Project</a>
             </div>
+
             <div class="project">
-                <img src="WhatsApp Image 2025-01-05 at 22.20.07_14bc1870.jpg" alt="Pone_Stoer">
-                <h4>Pone_Stoer</h4>
-                <a href="Pone_Stoer.html">View Details</a>
+                <img src="DALL·E 2025-01-05 00.25.23.jpg" alt="Portfolio project 2">
+                <h3>My Second Project</h3>
+                <p>A dynamic web page using JavaScript.</p>
+                <a href="#">View Project</a>
+            </div>
+
+            <div class="project">
+                <img src="DALL·E 2025-01-05 00.28.00.jpg" alt="Portfolio project 3">
+                <h3>My Third Project</h3>
+                <p>A Flutter mobile app for real-time communication.</p>
+                <a href="#">View Project</a>
             </div>
         </div>
     </section>
@@ -252,13 +329,14 @@
     <footer>
         <p>&copy; 2025 Boda. All Rights Reserved.</p>
         <div class="social-icons">
-            <a href="https://www.facebook.com/profile.php?id=100014551027269&mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook"></i></a>
-            <a href="https://wa.me" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
         </div>
     </footer>
-
 </body>
 </html>
+
 
 
 

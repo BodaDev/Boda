@@ -101,6 +101,61 @@
             border: 2px solid #ddd;
             border-radius: 10px;
         }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .form-container input, .form-container select, .form-container button {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+
+            .button {
+                padding: 10px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .form-container input, .form-container select, .form-container button {
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+
+            .button {
+                padding: 8px 16px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -227,28 +282,10 @@
                     <td><button class="button">تعديل</button> <button class="button">حذف</button></td>
                 `;
                 productTableBody.appendChild(row);
-                updateSaleProductOptions();
             });
-        }
 
-        // Update Sales Table
-        function updateSaleList() {
-            salesTableBody.innerHTML = '';
-            saleList.forEach(sale => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${sale.productName}</td>
-                    <td>${sale.quantitySold}</td>
-                    <td>${sale.totalPrice}</td>
-                    <td><button class="button">استرجاع</button></td>
-                `;
-                salesTableBody.appendChild(row);
-            });
-        }
-
-        // Update Product Options for Sales Form
-        function updateSaleProductOptions() {
-            saleProductSelect.innerHTML = `<option value="">اختيار منتج</option>`;
+            // Update Sale Product Select Dropdown
+            saleProductSelect.innerHTML = '<option value="">اختيار المنتج</option>';
             productList.forEach(product => {
                 const option = document.createElement("option");
                 option.value = product.name;
@@ -257,19 +294,38 @@
             });
         }
 
+        // Update Sales List Table
+        function updateSaleList() {
+            salesTableBody.innerHTML = '';
+            saleList.forEach(sale => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${sale.productName}</td>
+                    <td>${sale.quantitySold}</td>
+                    <td>${sale.totalPrice}</td>
+                    <td><button class="button">إلغاء</button></td>
+                `;
+                salesTableBody.appendChild(row);
+            });
+        }
+
         // Barcode Scanner
-        const codeReader = new ZXing.BrowserMultiFormatReader();
-        const videoElement = document.getElementById('barcode-video');
-        const startScanningButton = document.getElementById('start-scanning');
+        const codeReader = new ZXing.BrowserQRCodeReader();
+        const startScanningButton = document.getElementById("start-scanning");
+        const barcodeVideo = document.getElementById("barcode-video");
 
         startScanningButton.addEventListener("click", function() {
-            codeReader.decodeFromVideoDevice(null, videoElement, (result, error) => {
+            codeReader.decodeFromVideoDevice(null, barcodeVideo, (result, err) => {
                 if (result) {
-                    alert("تم مسح الباركود: " + result.getText());
+                    alert(`تم مسح الباركود بنجاح: ${result.text}`);
+                }
+                if (err) {
+                    console.error(err);
                 }
             });
         });
     </script>
 </body>
 </html>
+
 
