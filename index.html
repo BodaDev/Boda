@@ -7,255 +7,256 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;
-        }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Roboto', sans-serif;
+    }
 
-        body {
-            background: #1a1a2e;
-            color: #eaeaea;
-            line-height: 1.6;
-            min-height: 100vh; 
-            display: flex;
-            flex-direction: column;
-        }
+    body {
+        background: #1a1a2e;
+        color: #eaeaea;
+        line-height: 1.6;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
 
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        color: #fff;
+        padding: 40px;
+    }
+
+    header img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 3px solid #fff;
+        margin-right: 20px;
+    }
+
+    header .intro {
+        display: flex;
+        flex-direction: column;
+    }
+
+    header .intro h1 {
+        font-size: 2.2rem;
+    }
+
+    header .intro p {
+        font-size: 1.2rem;
+    }
+
+    header nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 18px;
+        margin: 0 10px;
+        transition: color 0.3s ease;
+    }
+
+    header nav a:hover {
+        color: #ffcb05;
+    }
+
+    section {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 20px;
+        background: #2a2a40;
+        border-radius: 8px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        flex: 1;
+    }
+
+    section h2 {
+        text-align: center;
+        color: #ffcb05;
+        margin-bottom: 15px;
+    }
+
+    .projects {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+
+    .projects .project {
+        width: 280px;
+        background: #202036;
+        border-radius: 10px;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .projects .project img {
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    .projects .project:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .projects .project a {
+        display: inline-block;
+        margin-top: 10px;
+        text-decoration: none;
+        color: #2575fc;
+        font-weight: 500;
+    }
+
+    footer {
+        text-align: center;
+        padding: 5px 0;
+        background: #111;
+        color: #fff;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        font-size: 12px;
+    }
+
+    footer .social-icons {
+        margin-top: 5px;
+    }
+
+    footer .social-icons a {
+        margin: 0 8px;
+        color: #fff;
+        font-size: 18px;
+        transition: color 0.3s ease;
+    }
+
+    footer .social-icons a:hover {
+        color: #ffcb05;
+    }
+
+    .bio-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 40px;
+        margin-top: 30px;
+    }
+
+    .bio {
+        width: 45%;
+        background: #202036;
+        padding: 30px;
+        border-radius: 8px;
+    }
+
+    .right-content {
+        width: 45%;
+        background: #202036;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .right-content h3 {
+        color: #ffcb05;
+        margin-bottom: 15px;
+    }
+
+    .right-content p {
+        color: #ddd;
+        font-size: 1.2rem;
+        line-height: 1.8;
+    }
+
+    .project-image {
+        width: 100%;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    .bio h2, .right-content h3 {
+        color: #ffcb05;
+    }
+
+    /* Media Queries for responsive design */
+    @media (max-width: 768px) {
         header {
-            display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
-            color: #fff;
-            padding: 40px;
+            padding: 20px;
         }
 
         header img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            border: 3px solid #fff;
-            margin-right: 20px;
-        }
-
-        header .intro {
-            display: flex;
-            flex-direction: column;
+            width: 150px;
+            height: 150px;
+            margin-bottom: 15px;
         }
 
         header .intro h1 {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
         }
 
-        header .intro p {
-            font-size: 1.2rem;
+        header nav {
+            display: flex;
+            flex-direction: column;
+            margin-top: 15px;
         }
 
         header nav a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 18px;
-            margin: 0 10px;
-            transition: color 0.3s ease;
-        }
-
-        header nav a:hover {
-            color: #ffcb05;
-        }
-
-        section {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 20px;
-            background: #2a2a40;
-            border-radius: 8px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            flex: 1; 
-        }
-
-        section h2 {
-            text-align: center;
-            color: #ffcb05;
-            margin-bottom: 15px;
-        }
-
-        .projects {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            gap: 20px;
-            margin-bottom: 40px; /* زيادة المسافة بين الفوتر والبروجيكتس */
-        }
-
-        .projects .project {
-            width: 280px;
-            background: #202036;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .projects .project img {
-            width: 100%;
-            border-radius: 8px;
-        }
-
-        .projects .project:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .projects .project a {
-            display: inline-block;
-            margin-top: 10px;
-            text-decoration: none;
-            color: #2575fc;
-            font-weight: 500;
-        }
-
-        footer {
-            text-align: center;
-            padding: 5px 0; /* قلل المسافة العمودية */
-            background: #111;
-            color: #fff;
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            font-size: 12px; /* قلل حجم الخط */
-        }
-
-        footer .social-icons {
-            margin-top: 5px;
-        }
-
-        footer .social-icons a {
-            margin: 0 8px;
-            color: #fff;
-            font-size: 18px; /* قلل حجم الأيقونات */
-            transition: color 0.3s ease;
-        }
-
-        footer .social-icons a:hover {
-            color: #ffcb05;
+            font-size: 16px;
+            margin: 5px 0;
         }
 
         .bio-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 40px; /* مسافة بين الجهتين */
-            margin-top: 30px;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        .bio {
-            width: 45%;
-            background: #202036;
-            padding: 30px;
-            border-radius: 8px;
-        }
-
-        .right-content {
-            width: 45%;
-            background: #202036;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .right-content h3 {
-            color: #ffcb05;
-            margin-bottom: 15px;
-        }
-
-        .right-content p {
-            color: #ddd;
-            font-size: 1.2rem;
-            line-height: 1.8;
-        }
-
-        .project-image {
+        .bio, .right-content {
             width: 100%;
-            border-radius: 8px;
-            margin-top: 20px;
         }
 
-        .bio h2, .right-content h3 {
-            color: #ffcb05;
+        .projects {
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* Media Queries for responsive design */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                align-items: center;
-                padding: 20px;
-            }
-
-            header img {
-                width: 150px;
-                height: 150px;
-                margin-bottom: 15px;
-            }
-
-            header .intro h1 {
-                font-size: 1.8rem;
-            }
-
-            header nav {
-                display: flex;
-                flex-direction: column;
-                margin-top: 15px;
-            }
-
-            header nav a {
-                font-size: 16px;
-                margin: 5px 0;
-            }
-
-            .bio-container {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .bio, .right-content {
-                width: 100%;
-            }
-
-            .projects {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .projects .project {
-                width: 90%;
-                margin-bottom: 20px;
-            }
-
-            footer {
-                font-size: 14px;
-            }
+        .projects .project {
+            width: 90%;
+            margin-bottom: 20px;
         }
 
-        @media (max-width: 480px) {
-            header .intro h1 {
-                font-size: 1.5rem;
-            }
+        footer {
+            font-size: 14px;
+        }
+    }
 
-            header .intro p {
-                font-size: 1rem;
-            }
-
-            footer .social-icons a {
-                font-size: 16px;
-            }
+    @media (max-width: 480px) {
+        header .intro h1 {
+            font-size: 1.5rem;
         }
 
-    </style>
+        header .intro p {
+            font-size: 1rem;
+        }
+
+        footer .social-icons a {
+            font-size: 16px;
+        }
+    }
+
+</style>
+
 </head>
 <body>
     <header>
